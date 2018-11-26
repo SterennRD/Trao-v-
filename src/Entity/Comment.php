@@ -36,7 +36,7 @@ class Comment
     private $createdAt;
 
     /**
-     * @var \Item
+     * @var Item
      *
      * @ORM\ManyToOne(targetEntity="Item")
      * @ORM\JoinColumns({
@@ -46,7 +46,7 @@ class Comment
     private $item;
 
     /**
-     * @var \User
+     * @var User
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({

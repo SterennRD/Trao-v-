@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * Item
  *
@@ -73,19 +74,19 @@ class Item
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
 
     /**
-     * @var \Category
+     * @var Category
      *
      * @ORM\ManyToOne(targetEntity="Category")
      * @ORM\JoinColumns({
@@ -95,7 +96,7 @@ class Item
     private $category;
 
     /**
-     * @var \County
+     * @var County
      *
      * @ORM\ManyToOne(targetEntity="County")
      * @ORM\JoinColumns({
@@ -105,7 +106,7 @@ class Item
     private $county;
 
     /**
-     * @var \Status
+     * @var Status
      *
      * @ORM\ManyToOne(targetEntity="Status")
      * @ORM\JoinColumns({
@@ -115,7 +116,7 @@ class Item
     private $status;
 
     /**
-     * @var \User
+     * @var User
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
@@ -285,5 +286,19 @@ class Item
         return $this;
     }
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->setCreatedAt(new \DateTime());
+    }
 
+    /**
+     * @ORM\PostUpdate
+     */
+    public function setUpdatedAtValue()
+    {
+        $this->setUpdatedAt(new \DateTime());
+    }
 }

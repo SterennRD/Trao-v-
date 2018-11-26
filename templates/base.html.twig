@@ -1,12 +1,83 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Trouvé{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
+    {% block navigation %}
+        <div class="fixed-top d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm">
+            <h5 class="my-0 mr-md-auto font-weight-normal">
+        <span class="fa-stack fa-lg text-primary">
+          <i class="fa fa-square fa-stack-2x"></i>
+          <i class="fa fa-search fa-stack-1x fa-inverse"></i>
+        </span>
+                Traoùvé
+            </h5>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <a class="p-2 text-dark" href="index.html">Accueil</a>
+                <a class="p-2 text-dark" href="form.html">Déposer une annonce</a>
+                <a class="p-2 text-dark" href="list-lost.html">Objets perdus</a>
+                <a class="p-2 text-dark" href="list-found.html">Objets trouvés</a>
+            </nav>
+            <a class="btn btn-outline-primary" href="register.html">
+                <i class="fa fa-user-plus"></i>
+                Créer un compte
+            </a>
+        </div>
+    {% endblock %}
+
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+        {% block footer %}
+            <div class="container">
+                <footer class="pt-4 my-md-5 pt-md-5 border-top">
+                    <div class="row">
+                        <div class="col-12 col-md">
+                            <h5 class="my-0 mr-md-auto font-weight-normal">
+                    <span class="fa-stack fa-lg text-primary">
+                      <i class="fa fa-square fa-stack-2x"></i>
+                      <i class="fa fa-search fa-stack-1x fa-inverse"></i>
+                    </span>
+                                Traoùvé
+                            </h5>
+                            <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
+                        </div>
+                        <div class="col-6 col-md">
+                            <h5>Catégories</h5>
+                            <ul class="list-unstyled text-small">
+                                <li><a class="text-muted" href="#">Clés</a></li>
+                                <li><a class="text-muted" href="#">Portefeuille</a></li>
+                                <li><a class="text-muted" href="#">Jouet</a></li>
+                                <li><a class="text-muted" href="#">Animaux</a></li>
+                                <li><a class="text-muted" href="#">Electroniques</a></li>
+                                <li><a class="text-muted" href="#">Vêtements</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-md">
+                            <h5>Villes</h5>
+                            <ul class="list-unstyled text-small">
+                                <li><a class="text-muted" href="#">Rennes</a></li>
+                                <li><a class="text-muted" href="#">Brest</a></li>
+                                <li><a class="text-muted" href="#">Vannes</a></li>
+                                <li><a class="text-muted" href="#">St Malo</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-md">
+                            <h5>Notre entreprise</h5>
+                            <ul class="list-unstyled text-small">
+                                <li><a class="text-muted" href="#">Equipe</a></li>
+                                <li><a class="text-muted" href="#">Contact</a></li>
+                                <li><a class="text-muted" href="#">Mentions légales</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        {% endblock %}
+
+        <script src="main.js"></script>
     </body>
 </html>
