@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Status
 {
+    const FOUND = "Trouvé";
+    const LOST = "Perdu";
+
     /**
      * @var int
      *

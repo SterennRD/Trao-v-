@@ -1,13 +1,20 @@
 <article class="col-md-3">
     <div class="card object-card">
         <span class="badge badge-primary badge-found" style="background:{{ item.status.color }};"><i class="fa {{ item.status.icon }}"></i> {{ item.status.label }}</span>
-        <img class="card-img-top" src="{{ asset('uploads/' ~ item.photo) }}" alt="{{ item.category.label }}">
+        {% if item.photo == null %}
+            <div class="card-img-top imgless-item" style="background-color: {{ item.category.color }};">
+                <i class="fa {{ item.category.icon }}"></i>
+            </div>
+        {% else %}
+            <img class="card-img-top" src="{{ asset('uploads/' ~ item.photo) }}" alt="{{ item.category.label }}">
+        {% endif %}
+
         <div class="card-body">
             <h5 class="card-title">{{ item.name }}</h5>
             <ul class="object-features">
                 <li><a href="{{ path('category_show', {'id' : item.category.id}) }}" class="badge" style="background-color: {{ item.category.color }};"><i class="fa {{ item.category.icon }}"></i> {{ item.category.label }}</a></li>
-                <li><a href="#" class="badge badge-info"><i class="fa fa-calendar"></i> {{ item.datebeginformatted }}</a></li>
-                <li><a href="#" class="badge badge-info"><i class="fa fa-map-marker"></i> {{ item.city }}</a></li>
+                <li><a href="#" class="badge badge-info"><i class="fa fa-calendar"></i> {{ item.datebegin|date("d/m/Y") }}</a></li>
+                <li><a href="{{ path('item_city', {'city' : item.city}) }}" class="badge badge-info"><i class="fa fa-map-marker"></i> {{ item.city }}</a></li>
             </ul>
         </div>
         <a href="{{ path('item_show', {'id': item.id}) }}" class="card-footer-btn btn btn-primary"><i class="fa fa-eye"></i> Afficher</a>

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Item;
+use App\Entity\Status;
 use App\Form\ItemType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -89,5 +90,18 @@ class ItemController extends AbstractController
         }
 
         return $this->redirectToRoute('item_index');
+    }
+
+    /**
+     * @Route("/city/{city}", name="item_city")
+     */
+    public function findByCity(string $city) : Response
+    {
+        $items = $this->getDoctrine()->getRepository(Item::class)->findBy(["city" => $city]);
+
+        return $this->render('item/city.html.twig', [
+            "items" => $items,
+            "city" => $city
+        ]);
     }
 }

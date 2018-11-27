@@ -22,14 +22,25 @@ class ItemRepository extends ServiceEntityRepository
         parent::__construct($registry, Item::class);
     }
 
-    public function findLastStatus (int $status, int $limit = 5) : array
+    public function findLastStatus (string $status, int $limit = null) : array
     {
         $qb = $this->createQueryBuilder('i');
 
         $qb = $qb->innerJoin('i.status', 's')
-            ->where($qb->expr()->eq('s.id', $status))
+            ->where($qb->expr()->eq('s.label', ":status"))
             ->orderBy('i.createdAt', 'DESC')
             ->setMaxResults($limit);
+
+        return $qb->setParameter('status', $status)
+                ->getQuery()
+            ->getResult();
+    }
+
+    public function findByCity (int $cityId) : array
+    {
+        $qb = $this->createQueryBuilder('i');
+
+        $qb = $qb->where($qb->expr()->eq('i.city', $cityId));
 
         return $qb
             ->getQuery()
