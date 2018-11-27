@@ -5,11 +5,11 @@
 {% block body %}
     <div class="container">
     <h1>{{ category.label }}</h1>
-        <ul>
+        <section class="row">
             {% for item in items %}
-                <li><a href="{{ path('item_show', {'id' : item.id}) }}">{{ item.name }}</a></li>
+                {% include 'item/card.html.twig' with {'item' : item} only %}
             {% endfor %}
-        </ul>
+        </section>
 
     <table class="table">
         <tbody>

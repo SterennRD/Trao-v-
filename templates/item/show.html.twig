@@ -55,4 +55,69 @@
     <a href="{{ path('item_edit', {'id': item.id}) }}">edit</a>
 
     {{ include('item/_delete_form.html.twig') }}
+
+    <div class="container">
+        <div class="card object-card">
+            <h1 class="card-header">
+                <span class="badge badge-primary badge-found" style="background-color:{{ item.status.color }};">
+                    <i class="fa {{ item.status.icon }}"></i>
+                    {{ item.status.label }}
+                </span>
+                {{ item.name }}
+            </h1>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        {% if item.photo == null %}
+                            <div class="img-thumbnail imgless-item" style="background-color: {{ item.category.color }};">
+                                <i class="fa {{ item.category.icon }}"></i>
+                            </div>
+                            {% else %}
+                                <img src="{{ asset('uploads/' ~ item.photo) }}" class="img-thumbnail" alt="{{ item.category.label }}">
+                        {% endif %}
+
+                    </div>
+                    <div class="col-md-8">
+                        <p>{{ item.description }}</p>
+                    </div>
+                </div>
+            </div>
+            <footer class="card-footer">
+                <ul class="object-features">
+                    <li><a href="#" class="badge" style="background-color: {{ item.category.color }};"><i class="fa {{ item.category.icon }}"></i> {{ item.category.label }}</a></li>
+                    <li><a href="#" class="badge badge-info"><i class="fa fa-calendar"></i> {{ item.datebeginformatted }}</a></li>
+                    <li><a href="#" class="badge badge-info"><i class="fa fa-map-marker"></i> {{ item.city }}</a></li>
+                </ul>
+            </footer>
+        </div>
+
+        <hr>
+
+        <h3>Commentaires</h3>
+
+        <div class="alert alert-secondary" role="alert">
+            <p>Veuillez vous connecter afin de pouvoir laisser un commentaire</p>
+            <a href="login.html" class="btn btn-primary">
+                <i class="fa fa-sign-in"></i>
+                Me connecter
+            </a>
+        </div>
+
+        <ul class="list-unstyled">
+            <li class="media mb-1">
+                <img class="mr-3" src="uploads/user-2.jpg" alt="Generic placeholder image">
+                <div class="media-body">
+                    <h5 class="mt-0 mb-1">Jane Doe</h5>
+                    <p>Pourriez-vous préciser l'heure à laquelle vous l'avez perdu svp ? Il me semble avoir vu une personne le ramasser vers 17h30.</p>
+                </div>
+            </li>
+            <li class="media mb-1">
+                <img class="mr-3" src="uploads/user-1.jpg" alt="John Doe">
+                <div class="media-body">
+                    <h5 class="mt-0 mb-1">John Doe</h5>
+                    <p>Bonjour, je pense avoir trouvé votre portefeuille ce matin. Pourriez-vous m'envoyer votre nom et prénom par message privé svp afin que je puisse vous le remettre ?</p>
+                </div>
+            </li>
+        </ul>
+    </div>
 {% endblock %}

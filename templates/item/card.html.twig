@@ -1,6 +1,6 @@
 <article class="col-md-3">
     <div class="card object-card">
-        <span class="badge badge-primary badge-found" style="background:{{ item.status.color }}"><i class="fa {{ item.status.icon }}"></i> {{ item.status.label }}</span>
+        <span class="badge badge-primary badge-found" style="background:{{ item.status.color }};"><i class="fa {{ item.status.icon }}"></i> {{ item.status.label }}</span>
         <img class="card-img-top" src="{{ asset('uploads/' ~ item.photo) }}" alt="{{ item.category.label }}">
         <div class="card-body">
             <h5 class="card-title">{{ item.name }}</h5>
