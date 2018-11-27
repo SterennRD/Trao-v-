@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <div class="container">
+        <h1 class="h3 mb-3">S'enregistrer</h1>
+        {{ form_start(form) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.lastname) }}
+        {{ form_row(form.plainPassword.first) }}
+        {{ form_row(form.plainPassword.second) }}
+
+        <button type="submit" class="btn">Créer un compte</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

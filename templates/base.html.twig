@@ -23,10 +23,24 @@
                 <a class="p-2 text-dark" href="list-lost.html">Objets perdus</a>
                 <a class="p-2 text-dark" href="list-found.html">Objets trouvés</a>
             </nav>
-            <a class="btn btn-outline-primary" href="register.html">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="btn brn-outline-primary btn-space">
+                {{ app.user.username }}
+            </div>
+                <a class="btn btn-outline-secondary" href="{{ path('app_logout') }}">
+                    <i class="fa fa-user-plus"></i>
+                    Déconnexion
+                </a>
+                {% else %}
+            <a class="btn btn-outline-primary btn-space" href="{{ path('app_register') }}">
                 <i class="fa fa-user-plus"></i>
                 Créer un compte
             </a>
+            <a class="btn btn-outline-secondary" href="{{ path('app_login') }}">
+                <i class="fa fa-user-plus"></i>
+                Connexion
+            </a>
+            {% endif %}
         </div>
     {% endblock %}
 
