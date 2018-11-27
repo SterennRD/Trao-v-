@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Item
  *
  * @ORM\Table(name="item", indexes={@ORM\Index(name="fk_item_user1_idx", columns={"user_id"}), @ORM\Index(name="fk_item_status1_idx", columns={"status_id"}), @ORM\Index(name="fk_item_county1_idx", columns={"county_id"}), @ORM\Index(name="fk_item_category1_idx", columns={"category_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ItemRepository")
  */
 class Item
 {
@@ -193,6 +193,11 @@ class Item
     public function getDateBegin(): ?\DateTimeInterface
     {
         return $this->dateBegin;
+    }
+
+    public function getDateBeginFormatted() : string
+    {
+        return $this->getDateBegin()->format("d/m/y");
     }
 
     public function setDateBegin(\DateTimeInterface $dateBegin): self

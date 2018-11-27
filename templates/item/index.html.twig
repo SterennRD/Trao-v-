@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Item index{% endblock %}
+
+{% block body %}
+    <h1>Item index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Photo</th>
+                <th>Description</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>DateBegin</th>
+                <th>DateEnd</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.photo }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.address }}</td>
+                <td>{{ item.city }}</td>
+                <td>{{ item.dateBegin ? item.dateBegin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ item.dateEnd ? item.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ item.createdAt ? item.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ item.updatedAt ? item.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('item_show', {'id': item.id}) }}">show</a>
+                    <a href="{{ path('item_edit', {'id': item.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('item_new') }}">Create new</a>
+{% endblock %}

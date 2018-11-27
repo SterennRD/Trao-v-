@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <title>{% block title %}Trouvé{% endblock %}</title>
         {% block stylesheet %}
-            <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+            {{ encore_entry_link_tags('app') }}
         {% endblock %}
     </head>
     {% block navigation %}
@@ -64,91 +64,21 @@
                 <div class="container">
                     <h2>Les derniers objets trouvés</h2>
                     <section class="row">
-                        <article class="col-md-3">
-                            <div class="card object-card">
-                                <span class="badge badge-primary badge-found"><i class="fa fa-map-pin"></i> Trouvé</span>
-                                <img class="card-img-top" src="uploads/wallet.jpg" alt="Portefeuille">
-                                <div class="card-body">
-                                    <h5 class="card-title">Portefeuille retrouvé à l'arrêt de bus</h5>
-                                    <ul class="object-features">
-                                        <li><a href="#" class="badge" style="background-color: #dc143c;"><i class="fa fa-money"></i> Portefeuille</a></li>
-                                        <li><a href="#" class="badge badge-info"><i class="fa fa-calendar"></i> 21/11/2018</a></li>
-                                        <li><a href="#" class="badge badge-info"><i class="fa fa-map-marker"></i> Rennes</a></li>
-                                    </ul>
-                                </div>
-                                <a href="object.html" class="card-footer-btn btn btn-primary"><i class="fa fa-eye"></i> Afficher</a>
-                            </div>
-                        </article>
-                        {% for item in items %}
 
-                            <article class="col-md-3">
-                                <div class="card object-card">
-                                    <span class="badge badge-primary badge-found"><i class="fa fa-map-pin"></i> Trouvé</span>
-                                    <img class="card-img-top" src="uploads/keys.jpg" alt="Clés">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ item.name }}</h5>
-                                        <ul class="object-features">
-                                            <li><a href="#" class="badge" style="background-color: #1480dc;"><i class="fa fa-key"></i> {{ item.category.label }}</a></li>
-                                            <li><a href="#" class="badge badge-info"><i class="fa fa-calendar"></i> 19/11/2018</a></li>
-                                            <li><a href="#" class="badge badge-info"><i class="fa fa-map-marker"></i> Brest</a></li>
-                                        </ul>
-                                    </div>
-                                    <a href="object.html" class="card-footer-btn btn btn-primary"><i class="fa fa-eye"></i> Afficher</a>
-                                </div>
-                            </article>
-                            
+                        {% for item in items_found %}
+                            {% include 'item/card.html.twig' with {'item' : item} only %}
                         {% endfor %}
-                        <article class="col-md-3">
-                            <div class="card object-card">
-                                <span class="badge badge-primary badge-found"><i class="fa fa-map-pin"></i> Trouvé</span>
-                                <img class="card-img-top" src="uploads/keys.jpg" alt="Clés">
-                                <div class="card-body">
-                                    <h5 class="card-title">Clés rue du général de Gaulle</h5>
-                                    <ul class="object-features">
-                                        <li><a href="#" class="badge" style="background-color: #1480dc;"><i class="fa fa-key"></i> Clés</a></li>
-                                        <li><a href="#" class="badge badge-info"><i class="fa fa-calendar"></i> 19/11/2018</a></li>
-                                        <li><a href="#" class="badge badge-info"><i class="fa fa-map-marker"></i> Brest</a></li>
-                                    </ul>
-                                </div>
-                                <a href="object.html" class="card-footer-btn btn btn-primary"><i class="fa fa-eye"></i> Afficher</a>
-                            </div>
-                        </article>
+
+                        
                     </section>
                 </div>
 
                 <div class="container">
                     <h2>Les derniers objets perdus</h2>
                     <section class="row">
-                        <article class="col-md-3">
-                            <div class="card object-card">
-                                <span class="badge badge-primary badge-lost"><i class="fa fa-map-pin"></i> Perdu</span>
-                                <img class="card-img-top" src="uploads/teddy-bear.jpg" alt="Jouet">
-                                <div class="card-body">
-                                    <h5 class="card-title">Ours en peluche à Sainte-Anne</h5>
-                                    <ul class="object-features">
-                                        <li><a href="#" class="badge" style="background-color: #dccd14;"><i class="fa fa-money"></i> Jouet</a></li>
-                                        <li><a href="#" class="badge badge-info"><i class="fa fa-calendar"></i> 19/11/2018</a></li>
-                                        <li><a href="#" class="badge badge-info"><i class="fa fa-map-marker"></i> Rennes</a></li>
-                                    </ul>
-                                </div>
-                                <a href="object.html" class="card-footer-btn btn btn-primary"><i class="fa fa-eye"></i> Afficher</a>
-                            </div>
-                        </article>
-                        <article class="col-md-3">
-                            <div class="card object-card">
-                                <span class="badge badge-primary badge-lost"><i class="fa fa-map-pin"></i> Perdu</span>
-                                <div class="card-logo-top" style="background-color: #1480dc;"><i class="fa fa-key"></i></div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Clés perdues à l'IUT</h5>
-                                    <ul class="object-features">
-                                        <li><a href="#" class="badge" style="background-color: #1480dc;"><i class="fa fa-key"></i> Clés</a></li>
-                                        <li><a href="#" class="badge badge-info"><i class="fa fa-calendar"></i> 12/11/2018</a></li>
-                                        <li><a href="#" class="badge badge-info"><i class="fa fa-map-marker"></i> Vannes</a></li>
-                                    </ul>
-                                </div>
-                                <a href="object.html" class="card-footer-btn btn btn-primary"><i class="fa fa-eye"></i> Afficher</a>
-                            </div>
-                        </article>
+                        {% for item in items_lost %}
+                                {% include 'item/card.html.twig' with {'item' : item} only %}
+                        {% endfor %}
                     </section>
                 </div>
 
@@ -171,14 +101,9 @@
                         </div>
                         <div class="col-6 col-md">
                             <h5>Catégories</h5>
-                            <ul class="list-unstyled text-small">
-                                <li><a class="text-muted" href="#">Clés</a></li>
-                                <li><a class="text-muted" href="#">Portefeuille</a></li>
-                                <li><a class="text-muted" href="#">Jouet</a></li>
-                                <li><a class="text-muted" href="#">Animaux</a></li>
-                                <li><a class="text-muted" href="#">Electroniques</a></li>
-                                <li><a class="text-muted" href="#">Vêtements</a></li>
-                            </ul>
+                            {{ render(controller(
+                                'App\\Controller\\CategoryController::listing'
+                            )) }}
                         </div>
                         <div class="col-6 col-md">
                             <h5>Villes</h5>
@@ -203,7 +128,7 @@
         {% endblock %}
 
         {% block javascripts %}
-            <script src="{{ asset('build/app.js') }}"></script>
+            {{ encore_entry_script_tags('app') }}
         {% endblock %}
 
     </body>

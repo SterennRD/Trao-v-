@@ -12,9 +12,11 @@ class DefaultController extends BaseController
     /** @Route("/", name="homepage") */
     public function index()
     {
-        $items = $this->getDoctrine()->getRepository(Item::class)->findAll();
+        $items_found = $this->getDoctrine()->getRepository(Item::class)->findLastStatus(4);
+        $items_lost = $this->getDoctrine()->getRepository(Item::class)->findLastStatus(5);
         return $this->render('default/homepage.html.twig',[
-            "items" => $items
+            "items_found" => $items_found,
+            "items_lost" => $items_lost
         ]);
     }
 }
