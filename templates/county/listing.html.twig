@@ -1,0 +1,5 @@
+<ul class="list-unstyled text-small">
+    {% for county in counties %}
+        <li><a class="text-muted" href="{{ path('county_show', {'id' : county.id}) }}">{{ county.name }}</a></li>
+    {% endfor %}
+</ul>

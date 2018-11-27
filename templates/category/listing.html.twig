@@ -1,5 +1,5 @@
 <ul class="list-unstyled text-small">
     {% for category in categories %}
-        <li><a class="text-muted" href="#">{{ category.label }}</a></li>
+        <li><a class="text-muted" href="{{ path('category_show', {'id' : category.id}) }}">{{ category.label }}</a></li>
     {% endfor %}
 </ul>

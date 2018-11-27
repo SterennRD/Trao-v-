@@ -5,7 +5,7 @@
         <div class="card-body">
             <h5 class="card-title">{{ item.name }}</h5>
             <ul class="object-features">
-                <li><a href="#" class="badge" style="background-color: {{ item.category.color }};"><i class="fa {{ item.category.icon }}"></i> {{ item.category.label }}</a></li>
+                <li><a href="{{ path('category_show', {'id' : item.category.id}) }}" class="badge" style="background-color: {{ item.category.color }};"><i class="fa {{ item.category.icon }}"></i> {{ item.category.label }}</a></li>
                 <li><a href="#" class="badge badge-info"><i class="fa fa-calendar"></i> {{ item.datebeginformatted }}</a></li>
                 <li><a href="#" class="badge badge-info"><i class="fa fa-map-marker"></i> {{ item.city }}</a></li>
             </ul>

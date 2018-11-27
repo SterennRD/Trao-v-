@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Item;
 use App\Form\CategoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,8 +55,11 @@ class CategoryController extends AbstractController
      */
     public function show(Category $category): Response
     {
-        return $this->render('category/show.html.twig', ['category' => $category]);
+        $items = $this->getDoctrine()->getRepository(Item::class)->findBy(["category" => $category]);
+        return $this->render('category/show.html.twig', ['category' => $category, "items" => $items]);
     }
+
+
 
     /**
      * @Route("/{id}/edit", name="category_edit", methods="GET|POST")

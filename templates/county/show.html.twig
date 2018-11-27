@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>{{ county.name }}</h1>
+        <ul>
+            {% for item in items %}
+                <li><a href="{{ path('item_show', {'id' : item.id}) }}">{{ item.name }}</a></li>
+            {% endfor %}
+        </ul>
+
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ county.id }}</td>
+            </tr>
+            <tr>
+                <th>Label</th>
+                <td>{{ county.name }}</td>
+            </tr>
+            <tr>
+                <th>Icon</th>
+                <td>{{ county.zipcode }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}
