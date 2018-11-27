@@ -104,4 +104,17 @@ class ItemController extends AbstractController
             "city" => $city
         ]);
     }
+
+    /**
+     * @Route("/list/{status}", name="item_list")
+     */
+    public function findByStatus(string $status) : Response
+    {
+        $items = $this->getDoctrine()->getRepository(Item::class)->findLastStatus($status);
+
+        return $this->render('item/list.html.twig', [
+            "items" => $items,
+            "status" => $status
+        ]);
+    }
 }

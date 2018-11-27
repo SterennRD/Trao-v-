@@ -41,6 +41,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=191, nullable=false)
+     * @Assert\NotBlank
      */
     private $email;
 

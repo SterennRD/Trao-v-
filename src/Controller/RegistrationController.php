@@ -7,18 +7,23 @@ use App\Form\UserType;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RegistrationController extends AbstractController
 {
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, ValidatorInterface $validator)
     {
         // 1) build the form
         $user = new User();
+        $errors = $validator->validate($user);
+
+
         $form = $this->createForm(UserType::class, $user);
 
         // 2) handle the submit (will only happen on POST)
@@ -38,7 +43,15 @@ class RegistrationController extends AbstractController
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the user
 
+
+
             return $this->redirectToRoute('app_login');
+        }
+        if (count($errors) > 0) {
+            return $this->render(
+                'user/validation.html.twig',
+                array('form' => $form->createView())
+            );
         }
 
         return $this->render(

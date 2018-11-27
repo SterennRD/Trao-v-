@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        {% if status == constant('App\\Entity\\Status::FOUND') %}
+            <h2>Les objets trouvés</h2>
+        {% endif %}
+        {% if status == constant('App\\Entity\\Status::LOST') %}
+            <h2>Les objets perdus</h2>
+        {% endif %}
+
+                <section class="row">
+                    {% for item in items %}
+                        {% include 'item/card.html.twig' with {'item' : item} only %}
+                    {% endfor %}
+                </section>
+
+    </div>
+
+{% endblock %}

@@ -3,13 +3,47 @@
     <div class="container">
         <h1 class="h3 mb-3">S'enregistrer</h1>
         {{ form_start(form) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.firstname) }}
-        {{ form_row(form.lastname) }}
+
+
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email) }}
+
+        {% if form.email.vars.errors|length > 0 %}
+            <ul class="form-errors name">
+                {% for error in form.email.vars.errors %}
+                    {{ error }}
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {{ form_label(form.firstname) }}
+        {{ form_widget(form.firstname) }}
+
+        {% if form.firstname.vars.errors|length > 0 %}
+            <ul class="form-errors name">
+                {% for error in form.firstname.vars.errors %}
+                    {{ error }}
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {{ form_label(form.lastname) }}
+        {{ form_widget(form.lastname) }}
+
+        {% if form.lastname.vars.errors|length > 0 %}
+            <ul class="form-errors name">
+                {% for error in form.lastname.vars.errors %}
+                    {{ error }}
+                {% endfor %}
+            </ul>
+        {% endif %}
+
         {{ form_row(form.plainPassword.first) }}
         {{ form_row(form.plainPassword.second) }}
 
         <button type="submit" class="btn">Créer un compte</button>
         {{ form_end(form) }}
+
+
     </div>
 {% endblock %}
