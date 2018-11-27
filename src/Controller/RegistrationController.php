@@ -21,7 +21,7 @@ class RegistrationController extends AbstractController
     {
         // 1) build the form
         $user = new User();
-        $errors = $validator->validate($user);
+
 
 
         $form = $this->createForm(UserType::class, $user);
@@ -47,12 +47,7 @@ class RegistrationController extends AbstractController
 
             return $this->redirectToRoute('app_login');
         }
-        if (count($errors) > 0) {
-            return $this->render(
-                'user/validation.html.twig',
-                array('form' => $form->createView())
-            );
-        }
+
 
         return $this->render(
             'security/register.html.twig',

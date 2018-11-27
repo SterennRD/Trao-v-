@@ -22,7 +22,7 @@ class ItemRepository extends ServiceEntityRepository
         parent::__construct($registry, Item::class);
     }
 
-    public function findLastStatus (string $status, int $limit = null) : array
+    public function findByStatus (string $status, int $limit = null) : array
     {
         $qb = $this->createQueryBuilder('i');
 

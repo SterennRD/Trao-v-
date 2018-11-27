@@ -110,7 +110,7 @@ class ItemController extends AbstractController
      */
     public function findByStatus(string $status) : Response
     {
-        $items = $this->getDoctrine()->getRepository(Item::class)->findLastStatus($status);
+        $items = $this->getDoctrine()->getRepository(Item::class)->findByStatus($status);
 
         return $this->render('item/list.html.twig', [
             "items" => $items,

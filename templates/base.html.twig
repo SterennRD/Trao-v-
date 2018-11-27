@@ -80,8 +80,8 @@
                     <h2>Les derniers objets trouvés</h2>
                     <section class="row">
 
-                        {% for item in items_found %}
-                            {% include 'item/card.html.twig' with {'item' : item} only %}
+                        {% for item_found in items_found %}
+                            {% include 'item/card.html.twig' with {'item' : item_found} %}
                         {% endfor %}
 
                     </section>
@@ -90,8 +90,8 @@
                 <div class="container">
                     <h2>Les derniers objets perdus</h2>
                     <section class="row">
-                        {% for item in items_lost %}
-                                {% include 'item/card.html.twig' with {'item' : item} only %}
+                        {% for item_lost in items_lost %}
+                                {% include 'item/card.html.twig' with {'item' : item_lost} %}
                         {% endfor %}
                     </section>
                 </div>
