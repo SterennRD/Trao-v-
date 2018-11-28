@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Item
@@ -33,6 +33,8 @@ class Item
      * @var string|null
      *
      * @ORM\Column(name="photo", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Please upload image")
+     * @Assert\File(mimeTypes = {"image/jpeg", "image/png", "image/gif", "image/jpg"})
      */
     private $photo;
 

@@ -102,7 +102,7 @@
                 <ul class="object-features">
                     <li><a href="{{ path('category_show', {'id' : item.category.id}) }}" class="badge" style="background-color: {{ item.category.color }};"><i class="fa {{ item.category.icon }}"></i> {{ item.category.label }}</a></li>
                     <li><a href="#" class="badge badge-info"><i class="fa fa-calendar"></i> {{ item.datebegin|date("d/m/Y") }}</a></li>
-                    <li><a href="" class="badge badge-info"><i class="fa fa-map-marker"></i> {{ item.city }}</a></li>
+                    <li><a href="{{ path('item_city', {'city' : item.city}) }}" class="badge badge-info"><i class="fa fa-map-marker"></i> {{ item.city }}</a></li>
                 </ul>
             </footer>
         </div>
@@ -111,13 +111,16 @@
 
         <h3>Commentaires</h3>
 
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% else %}
         <div class="alert alert-secondary" role="alert">
             <p>Veuillez vous connecter afin de pouvoir laisser un commentaire</p>
-            <a href="login.html" class="btn btn-primary">
+            <a href="{{ path('app_login') }}" class="btn btn-primary">
                 <i class="fa fa-sign-in"></i>
                 Me connecter
             </a>
         </div>
+        {% endif %}
 
         <ul class="list-unstyled">
             <li class="media mb-1">

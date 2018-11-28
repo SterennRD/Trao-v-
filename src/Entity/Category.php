@@ -83,5 +83,8 @@ class Category
         return $this;
     }
 
-
+    public function __toString()
+    {
+        return $this->getLabel();
+    }
 }
