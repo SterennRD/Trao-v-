@@ -6,6 +6,11 @@
     <div class="container">
         <h1>Déposer une annonce</h1>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {% if type == 'trouve' %}
+                {% include 'item/_form.html.twig' with {'form': formFound, 'status': statusFound} only %}
+            {% elseif type == 'perdu' %}
+                {% include 'item/_form.html.twig' with {'form': formLost, 'status': statusLost} only %}
+            {% elseif type == null %}
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="found-tab" data-toggle="tab" href="#found" role="tab" aria-controls="found" aria-selected="true">Objet trouvé</a>
@@ -22,6 +27,7 @@
                     {% include 'item/_form.html.twig' with {'form': formLost, 'status': statusLost} only %}
                 </div>
             </div>
+                {% endif %}
         {% else %}
             <div class="alert alert-secondary" role="alert">
                 <p>Veuillez vous connecter afin de pouvoir déposer une annonce</p>

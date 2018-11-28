@@ -19,16 +19,13 @@ class ItemType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, array('label' => 'Titre'))
-            ->add('photo', FileType::class)
-            ->add('description', TextType::class)
+            ->add('photo', FileType::class, array('required' => false))
+            ->add('description', TextType::class, array('required' => false))
             ->add('dateBegin', DateType::class, array(
-                'label' => 'Trouvé le',
-                'attr' => array(
-                    'max' => date('Y-m-d')
-                )
+                'label' => 'Trouvé le'
             ))
             ->add('category')
-            ->add('address', TextType::class, array('label' => 'Adresse'))
+            ->add('address', TextType::class, array('label' => 'Adresse', 'required' => false))
             ->add('city', TextType::class, array('label' => 'Ville'))
             ->add('county')
         ;

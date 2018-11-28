@@ -50,24 +50,29 @@ class ItemController extends AbstractController
             $item->setStatus($status);
             // $file stores the uploaded PDF file
             /** @var UploadedFile $file */
-            //$file = $item->getPhoto();
             $file = $form->get('photo')->getData();
 
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+            if (!$file) {
 
-            // Move the file to the directory where brochures are stored
-            try {
-                $file->move(
-                    $this->getParameter('photo_directory'),
-                    $fileName
-                );
-            } catch (FileException $e) {
-                // ... handle exception if something happens during file upload
+            } else {
+                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $file->move(
+                        $this->getParameter('photo_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'brochure' property to store the PDF file name
+                // instead of its contents
+                $item->setPhoto($fileName);
             }
 
-            // updates the 'brochure' property to store the PDF file name
-            // instead of its contents
-            $item->setPhoto($fileName);
+
 
             // ... persist the $product variable or any other work
 
@@ -81,6 +86,7 @@ class ItemController extends AbstractController
 
         $statusFound = $this->getDoctrine()->getRepository(Status::class)->findOneBy(["label" => Status::FOUND]);
         $statusLost = $this->getDoctrine()->getRepository(Status::class)->findOneBy(["label" => Status::LOST]);
+        $type = $request->get('type');
 
         return $this->render('item/new.html.twig', [
             'item' => $item,
@@ -88,6 +94,7 @@ class ItemController extends AbstractController
             'formFound' => $form->createView(),
             'statusFound' => $statusFound,
             'statusLost' => $statusLost,
+            'type' => $type,
         ]);
     }
 
