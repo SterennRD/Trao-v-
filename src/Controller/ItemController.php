@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Item;
 use App\Entity\Status;
 use App\Form\ItemType;
@@ -114,7 +115,9 @@ class ItemController extends AbstractController
      */
     public function show(Item $item): Response
     {
-        return $this->render('item/show.html.twig', ['item' => $item]);
+        $id = $item->getId();
+        $comments = $this->getDoctrine()->getRepository(Comment::class)->findByItem($id);
+        return $this->render('item/show.html.twig', ['item' => $item, 'comments' => $comments]);
     }
 
     /**

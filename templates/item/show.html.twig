@@ -123,20 +123,15 @@
         {% endif %}
 
         <ul class="list-unstyled">
-            <li class="media mb-1">
-                <img class="mr-3" src="uploads/user-2.jpg" alt="Generic placeholder image">
-                <div class="media-body">
-                    <h5 class="mt-0 mb-1">Jane Doe</h5>
-                    <p>Pourriez-vous préciser l'heure à laquelle vous l'avez perdu svp ? Il me semble avoir vu une personne le ramasser vers 17h30.</p>
-                </div>
-            </li>
-            <li class="media mb-1">
-                <img class="mr-3" src="uploads/user-1.jpg" alt="John Doe">
-                <div class="media-body">
-                    <h5 class="mt-0 mb-1">John Doe</h5>
-                    <p>Bonjour, je pense avoir trouvé votre portefeuille ce matin. Pourriez-vous m'envoyer votre nom et prénom par message privé svp afin que je puisse vous le remettre ?</p>
-                </div>
-            </li>
+            {% for comment in comments %}
+                <li class="media mb-1">
+                    <img class="mr-3" src="{{ asset('uploads' ~ comment.user.photo) }}" alt="{{ comment.user.fullname }}">
+                    <div class="media-body">
+                        <h5 class="mt-0 mb-1">{{ comment.user.fullname }}</h5>
+                        <p>{{ comment.content }}</p>
+                    </div>
+                </li>
+            {% endfor %}
         </ul>
     </div>
 {% endblock %}

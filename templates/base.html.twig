@@ -89,7 +89,6 @@
                                 Voir plus
                             </a>
                         {% endif %}
-
                     </section>
                 </div>
 
@@ -99,6 +98,12 @@
                         {% for item_lost in items_lost %}
                                 {% include 'item/card.html.twig' with {'item' : item_lost} %}
                         {% endfor %}
+                        {% if items_lost|length > constant('App\\Entity\\Item::MAX_RESULT') %}
+                            <a href="{{ path('item_list', {'status' : constant('App\\Entity\\Status::LOST')}) }}" class="btn btn-outline-primary see-more">
+                                <i class="fa fa-eye"></i>
+                                Voir plus
+                            </a>
+                        {% endif %}
                     </section>
                 </div>
 
