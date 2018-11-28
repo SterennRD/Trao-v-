@@ -8,6 +8,7 @@ use App\Form\ItemType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -42,6 +43,11 @@ class ItemController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $item->setUser($this->getUser());
+            $status = $this->getDoctrine()->getRepository(Status::class)->find($request->get("status_id"));
+            if (!$status) {
+                throw new HttpException(500, "Statut incorrect");
+            }
+            $item->setStatus($status);
             // $file stores the uploaded PDF file
             /** @var UploadedFile $file */
             //$file = $item->getPhoto();
@@ -73,11 +79,18 @@ class ItemController extends AbstractController
             return $this->redirectToRoute('item_index');
         }
 
+        $statusFound = $this->getDoctrine()->getRepository(Status::class)->findOneBy(["label" => Status::FOUND]);
+        $statusLost = $this->getDoctrine()->getRepository(Status::class)->findOneBy(["label" => Status::LOST]);
+
         return $this->render('item/new.html.twig', [
             'item' => $item,
-            'form' => $form->createView(),
+            'formLost' => $form->createView(),
+            'formFound' => $form->createView(),
+            'statusFound' => $statusFound,
+            'statusLost' => $statusLost,
         ]);
     }
+
 
     /**
      * @return string

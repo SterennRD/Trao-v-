@@ -1,5 +1,17 @@
 {{ form_start(form) }}
+
 <div class="form">
+    <h2>
+    <span class="badge badge-primary badge-found" style="background-color:{{ status.color }};">
+        <i class="fa fa-map-pin"></i>
+        {{ status.label }}
+    </span>
+        {% if status.label == constant('App\\Entity\\Status::LOST') %}
+            J'ai perdu un objet
+        {% elseif  status.label == constant('App\\Entity\\Status::FOUND') %}
+            J'ai trouvé un objet
+        {% endif %}
+    </h2>
 {{ form_row(form.name)}}
 
 {{ form_row(form.description) }}
@@ -18,8 +30,11 @@
 
 {{ form_row(form.address) }}
 
-{{ form_label(form.status, 'Statut' )}}
-{{ form_widget(form.status) }}
+    <input type="hidden" name="status_id" value="{{ status.id }}">
+
 </div>
-    <button class="btn">{{ button_label|default('Déposer mon annonce') }}</button>
+    <button class="btn btn-success">
+        <i class="fa fa-check"></i>
+        {{ button_label|default('Déposer mon annonce') }}
+    </button>
 {{ form_end(form) }}
