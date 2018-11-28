@@ -22,7 +22,8 @@ class ItemType extends AbstractType
             ->add('photo', FileType::class, array('required' => false))
             ->add('description', TextType::class, array('required' => false))
             ->add('dateBegin', DateType::class, array(
-                'label' => 'Trouvé le'
+                'label' => 'Trouvé le',
+                'widget' => 'single_text'
             ))
             ->add('category')
             ->add('address', TextType::class, array('label' => 'Adresse', 'required' => false))
@@ -30,17 +31,6 @@ class ItemType extends AbstractType
             ->add('county')
         ;
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $product = $event->getData();
-            $form = $event->getForm();
-
-            // checks if the Product object is "new"
-            // If no data is passed to the form, the data is "null".
-            // This should be considered a new "Product"
-            if (!$product || null === $product->getId()) {
-                $form->add('name', TextType::class);
-            }
-        });
     }
 
     public function configureOptions(OptionsResolver $resolver)

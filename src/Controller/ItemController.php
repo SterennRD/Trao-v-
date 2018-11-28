@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Item;
 use App\Entity\Status;
+use App\Form\CommentType;
 use App\Form\ItemType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -111,13 +112,34 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="item_show", methods="GET")
+     * @Route("/{id}", name="item_show", methods="GET|POST")
      */
-    public function show(Item $item): Response
+    public function show(Item $item, Request $request): Response
     {
         $id = $item->getId();
         $comments = $this->getDoctrine()->getRepository(Comment::class)->findByItem($id);
-        return $this->render('item/show.html.twig', ['item' => $item, 'comments' => $comments]);
+
+        $comment = new Comment;
+        $comment -> setItem($item);
+        $comment->setUser($this->getUser());
+        $comment->setCreatedAt(new \DateTime());
+        $form = $this->createForm(CommentType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() ) {
+            $comment->setContent($form->get('content')->getData());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirect($request->getUri());
+        }
+
+        return $this->render('item/show.html.twig', [
+            'item' => $item,
+            'comments' => $comments,
+            'form' => $form->createView(),
+        ]);
     }
 
     /**

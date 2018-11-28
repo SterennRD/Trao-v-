@@ -36,6 +36,9 @@ class CommentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setUser($this->getUser());
+            $comment->setCreatedAt(new \DateTime());
+            $comment->setItem($this->getUser());
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();

@@ -308,4 +308,9 @@ class Item
     {
         $this->setUpdatedAt(new \DateTime());
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

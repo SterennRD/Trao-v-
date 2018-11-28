@@ -82,8 +82,9 @@
                     </div>
                 </div>
                 <div class="d-flex">
-                    <div class="flex-fill d-flex justify-content-end align-items-center">
+                    <div class="flex-fill d-flex flex-column justify-content-center align-items-end">
                         <p>Par <b>{{ item.user.fullname }}</b></p>
+                        <p>Le {{ item.createdat|date("d/m/Y") }}</b></p>
                     </div>
                     <div>
                         {% if item.user.photo == null %}
@@ -125,13 +126,22 @@
         <ul class="list-unstyled">
             {% for comment in comments %}
                 <li class="media mb-1">
-                    <img class="mr-3" src="{{ asset('uploads' ~ comment.user.photo) }}" alt="{{ comment.user.fullname }}">
+                    <img class="mr-3" src="{{ asset('uploads/' ~ comment.user.photo) }}" alt="{{ comment.user.fullname }}">
                     <div class="media-body">
                         <h5 class="mt-0 mb-1">{{ comment.user.fullname }}</h5>
+                        <h6>Posté le {{ comment.createdat|date('d-m-Y') }}</h6>
                         <p>{{ comment.content }}</p>
                     </div>
                 </li>
             {% endfor %}
         </ul>
+        <h2>Ajouter un commentaire</h2>
+        {{ form_start(form) }}
+            {{ form_widget(form.content) }}
+        <button class="btn btn-success">
+            <i class="fa fa-check"></i>
+            {{ button_label|default('Laisser un commentaire') }}
+        </button>
+        {{ form_end(form) }}
     </div>
 {% endblock %}
