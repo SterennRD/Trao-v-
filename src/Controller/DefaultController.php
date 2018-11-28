@@ -13,8 +13,8 @@ class DefaultController extends BaseController
     /** @Route("/", name="homepage") */
     public function index()
     {
-        $items_found = $this->getDoctrine()->getRepository(Item::class)->findByStatus(Status::FOUND, 5);
-        $items_lost = $this->getDoctrine()->getRepository(Item::class)->findByStatus(Status::LOST, 5);
+        $items_found = $this->getDoctrine()->getRepository(Item::class)->findByStatus(Status::FOUND, Item::MAX_RESULT);
+        $items_lost = $this->getDoctrine()->getRepository(Item::class)->findByStatus(Status::LOST, Item::MAX_RESULT);
         return $this->render('default/homepage.html.twig',[
             "items_found" => $items_found,
             "items_lost" => $items_lost

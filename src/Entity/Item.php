@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Item
 {
+    const MAX_RESULT = 4;
     /**
      * @var int
      *

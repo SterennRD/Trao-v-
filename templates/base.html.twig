@@ -83,6 +83,12 @@
                         {% for item_found in items_found %}
                             {% include 'item/card.html.twig' with {'item' : item_found} %}
                         {% endfor %}
+                        {% if items_found|length >= constant('App\\Entity\\Item::MAX_RESULT') %}
+                            <a href="{{ path('item_list', {'status' : constant('App\\Entity\\Status::FOUND')}) }}" class="btn btn-outline-primary see-more">
+                                <i class="fa fa-eye"></i>
+                                Voir plus
+                            </a>
+                        {% endif %}
 
                     </section>
                 </div>
