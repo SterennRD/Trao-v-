@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pm index{% endblock %}
+
+{% block body %}
+    <h1>Pm index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pm in pms %}
+            <tr>
+                <td>{{ pm.id }}</td>
+                <td>{{ pm.title }}</td>
+                <td>{{ pm.content }}</td>
+                <td>{{ pm.date ? pm.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('pm_show', {'id': pm.id}) }}">show</a>
+                    <a href="{{ path('pm_edit', {'id': pm.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('pm_new') }}">Create new</a>
+{% endblock %}

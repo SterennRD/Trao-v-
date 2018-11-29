@@ -10,13 +10,17 @@
     </head>
     {% block navigation %}
         <div class="fixed-top d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm">
+
             <h5 class="my-0 mr-md-auto font-weight-normal">
+                <a href="{{ path('homepage') }}">
         <span class="fa-stack fa-lg text-primary">
           <i class="fa fa-square fa-stack-2x"></i>
           <i class="fa fa-search fa-stack-1x fa-inverse"></i>
         </span>
                 Traoùvé
+                </a>
             </h5>
+
             <nav class="my-2 my-md-0 mr-md-3">
                 <a class="p-2 text-dark" href="{{ path('homepage') }}">Accueil</a>
                 <a class="p-2 text-dark" href="{{ path('item_new') }}">Déposer une annonce</a>

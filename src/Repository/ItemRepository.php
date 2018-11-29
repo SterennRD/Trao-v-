@@ -7,6 +7,7 @@ namespace App\Repository;
 use App\Entity\Status;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use App\Entity\Item;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -63,5 +64,20 @@ class ItemRepository extends ServiceEntityRepository
             ->setParameter('county', $county)
             ->getQuery()
             ->getResult();
+    }
+
+    public function findItemsResolved()
+    {
+        $qb = $this->createQueryBuilder('i');
+
+            $qb
+                ->select('COUNT(i)')
+                ->where($qb->expr()->isNotNull('i.dateEnd'));
+        try {
+            return $qb->getQuery()
+                ->getSingleScalarResult();
+        } catch (NonUniqueResultException $e) {
+        }
+
     }
 }

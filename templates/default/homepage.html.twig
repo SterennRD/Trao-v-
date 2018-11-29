@@ -4,7 +4,7 @@
     <header class="header-home">
         <div class="container header-home-container">
             <h1>Traoùvé, premier service d'objets trouvés en Bretagne</h1>
-            <p>Déposez une annonce ou retrouvez un objet perdu grâce à notre communauté. Déjà <strong>4521</strong> objets retrouvés grâce à notre plateforme de mise en relation !</p>
+            <p>Déposez une annonce ou retrouvez un objet perdu grâce à notre communauté. Déjà <strong>{{ items_resolved }}</strong> objets retrouvés grâce à notre plateforme de mise en relation !</p>
             <section class="row">
                 <article class="col-md-4">
                     <a class="btn btn-primary" href="{{ path('item_new', {'type' : 'perdu'}) }}">

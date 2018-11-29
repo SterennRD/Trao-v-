@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Pm{% endblock %}
+
+{% block body %}
+    <h1>Create new Pm</h1>
+
+    {{ include('pm/_form.html.twig') }}
+
+    <a href="{{ path('pm_index') }}">back to list</a>
+{% endblock %}
