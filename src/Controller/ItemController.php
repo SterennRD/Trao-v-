@@ -265,4 +265,24 @@ class ItemController extends AbstractController
             'items' => $items,
         ]);
     }
+
+    /**
+     * @Route("/status/{id}", name="item_change_status")
+     */
+    public function changeStatus(Item $item, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $confirm = $request->get('confirm');
+        if ($confirm && $confirm == "confirm") {
+            $item = $this->getDoctrine()->getRepository(Item::class)->findOneBy(['id' => $item->getId()]);
+            $item->setDateEnd(new \DateTime());
+            $em->persist($item);
+            $em->flush();
+            return $this->redirectToRoute('homepage');
+        }
+        return $this->render('item/change-status.html.twig', [
+            'item' => $item,
+            'confirm' => $confirm
+        ]);
+    }
 }

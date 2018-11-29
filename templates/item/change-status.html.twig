@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <div class="container">
+        <h1>Confirmation</h1>
+        <p>Avez-vous bien retrouvé l'objet ?</p>
+        <a href="{{ path('item_change_status', {'id' : item.id, 'confirm' : 'confirm'}) }}" class="btn btn-success">
+            <i class="fa fa-check"></i>
+            Oui
+        </a>
+        <a href="{{ path('item_show', {'id' : item.id }) }}" class="btn btn-primary">
+            <i class="fa fa-times"></i>
+            Non
+        </a>
+    </div>
+{% endblock %}

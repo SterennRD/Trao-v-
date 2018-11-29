@@ -99,10 +99,16 @@
                 </div>
             </div>
             <footer class="card-footer">
-                <ul class="object-features">
+                <ul class="object-features d-flex">
                     <li><a href="{{ path('category_show', {'id' : item.category.id}) }}" class="badge" style="background-color: {{ item.category.color }};"><i class="fa {{ item.category.icon }}"></i> {{ item.category.label }}</a></li>
                     <li><a href="#" class="badge badge-info"><i class="fa fa-calendar"></i> {{ item.datebegin|date("d/m/Y") }}</a></li>
                     <li><a href="{{ path('item_city', {'city' : item.city}) }}" class="badge badge-info"><i class="fa fa-map-marker"></i> {{ item.city }}</a></li>
+                    {% if item.user.id == app.user.id %}
+                        <li class="ml-auto">
+                            <a href="{{ path('item_change_status', {'id' : item.id}) }}" class="badge badge-primary">J'ai retrouvé mon objet</a>
+                        </li>
+                    {% endif %}
+
                 </ul>
             </footer>
         </div>
