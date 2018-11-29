@@ -1,6 +1,9 @@
 {{ form_start(form) }}
 
 <div class="form">
+    {% if status %}
+
+
     <h2>
     <span class="badge badge-primary badge-found" style="background-color:{{ status.color }};">
         <i class="fa fa-map-pin"></i>
@@ -12,13 +15,14 @@
             J'ai trouvé un objet
         {% endif %}
     </h2>
+    {% endif %}
 {{ form_row(form.name)}}
 
 {{ form_row(form.description) }}
 
 {{ form_row(form.photo) }}
 
-{{ form_label(form.name, 'Catégorie' )}}
+{{ form_label(form.category, 'Catégorie' )}}
 {{ form_widget(form.category) }}
 
 {{ form_row(form.dateBegin) }}

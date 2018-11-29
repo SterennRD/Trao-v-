@@ -81,6 +81,11 @@
                         <p>{{ item.description }}</p>
                     </div>
                 </div>
+                {% if app.user.id == item.id or is_granted('IS_AUTHENTICATED_FULLY') %}
+                <div class="d-flex justify-content-end pr-1 mb-2">
+                    <a href="{{ path('item_edit', {'id': item.id}) }}" class="badge badge-info">éditer l'objet</a>
+                </div>
+                {% endif %}
                 <div class="d-flex">
                     <div class="flex-fill d-flex flex-column justify-content-center align-items-end item-user">
                         <p class="m-0">Par <b>{{ item.user.fullname }}</b></p>
@@ -132,7 +137,7 @@
             {% for comment in comments %}
                 <li class="media mb-1">
                 {% if comment.user.photo == null %}
-                <div class="img-thumbnail imgless-item imgless-item--user">
+                <div class="imgless-item imgless-item--user mr-3">
                     <i class="fa fa-user"></i>
                 </div>
             {% else %}

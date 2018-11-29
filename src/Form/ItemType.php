@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,7 +21,7 @@ class ItemType extends AbstractType
         $builder
             ->add('name', TextType::class, array('label' => 'Titre'))
             ->add('photo', FileType::class, array('required' => false))
-            ->add('description', TextType::class, array('required' => false))
+            ->add('description', TextareaType::class, array('required' => false))
             ->add('dateBegin', DateType::class, array(
                 'label' => 'Trouvé le',
                 'widget' => 'single_text'

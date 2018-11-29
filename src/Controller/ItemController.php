@@ -89,7 +89,7 @@ class ItemController extends AbstractController
             $em->persist($item);
             $em->flush();
 
-            return $this->redirectToRoute('item_index');
+            return $this->redirectToRoute('item_show', ['id' => $item->getId()]);
         }
 
         $statusFound = $this->getDoctrine()->getRepository(Status::class)->findOneBy(["label" => Status::FOUND]);
