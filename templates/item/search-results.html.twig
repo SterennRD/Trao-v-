@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <div class="container">
+        <h1>Affichage des résultats</h1>
+        <section class="row">
+
+        {% for item in items %}
+            {% include 'item/card.html.twig' %}
+        {% endfor %}
+        {% if items|length == 0 %}
+            Pas de résultat
+        {% endif %}
+        </section>
+    </div>
+
+{% endblock %}

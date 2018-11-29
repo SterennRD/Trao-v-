@@ -2,18 +2,24 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Item;
 use App\Entity\Status;
 use App\Form\CommentType;
 use App\Form\ItemType;
+use App\Form\SearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Form\Form;
 
 
 /**
@@ -112,7 +118,7 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="item_show", methods="GET|POST")
+     * @Route("/show/{id}", name="item_show", methods="GET|POST")
      */
     public function show(Item $item, Request $request): Response
     {
@@ -199,6 +205,64 @@ class ItemController extends AbstractController
         return $this->render('item/list.html.twig', [
             "items" => $items,
             "status" => $status
+        ]);
+    }
+
+    /**
+     * @Route("/search", name="item_search")
+     */
+    public function search(Request $request): Response
+    {
+        $item = new Item();
+        $form = $this->createFormBuilder($item)
+            ->add('category')
+            ->add('county')
+            ->add('dateBegin', DateType::class, [
+                'widget' => 'single_text',
+                'required' => false,
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $data = $form->getData();
+            $category = $data->getCategory()->getId();
+            $county = $data->getCounty()->getId();
+            $date = null;
+            if ($data->getDateBegin()) {
+                $date = $data->getDateBegin()->format('Y-m-d');
+            }
+            return $this->redirectToRoute('item_search_results', [
+                'category' => $category,
+                'county' => $county,
+                'date' => $date
+            ]);
+        }
+
+
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+
+        return $this->render('item/search.html.twig', [
+
+            'categories' => $categories,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/search/results", name="item_search_results")
+     */
+    public function searchResults(Request $request): Response
+    {
+        $category = $request->get('category');
+        $county = $request->get('county');
+        $date = $request->get('date');
+        $items = $this->getDoctrine()->getRepository(Item::class)->findBySearch($category, $county, $date);
+
+        return $this->render('item/search-results.html.twig', [
+
+            'items' => $items,
         ]);
     }
 }

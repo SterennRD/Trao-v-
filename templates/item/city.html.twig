@@ -4,19 +4,22 @@
 
 {% block body %}
     <div class="container">
-        {% for item in items %}
-        {% if item.status.label == constant('App\\Entity\\Status::FOUND') %}
         <h2>Les derniers objets trouvés à {{ city }}</h2>
         <section class="row">
+        {% for item in items %}
+        {% if item.status.label == constant('App\\Entity\\Status::FOUND') %}
                 {% include 'item/card.html.twig' with {'item' : item} only %}
+            {% endif %}
+        {% endfor %}
         </section>
-        {% elseif item.status.label == constant('App\\Entity\\Status::LOST') %}
         <h2>Les derniers objets perdus à {{ city }}</h2>
         <section class="row">
+        {% for item in items %}
+        {% if item.status.label == constant('App\\Entity\\Status::LOST') %}
                 {% include 'item/card.html.twig' with {'item' : item} only %}
-        </section>
         {% endif %}
         {% endfor %}
+        </section>
     </div>
 
 {% endblock %}

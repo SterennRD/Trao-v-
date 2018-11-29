@@ -202,7 +202,7 @@ class Item
         return $this->getDateBegin()->format("d/m/y");
     }
 
-    public function setDateBegin(\DateTimeInterface $dateBegin): self
+    public function setDateBegin(\DateTimeInterface $dateBegin = null): self
     {
         $this->dateBegin = $dateBegin;
 

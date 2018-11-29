@@ -1,2 +1,61 @@
 {% extends "base.html.twig" %}
 
+{% block body %}
+    <header class="header-home">
+        <div class="container header-home-container">
+            <h1>Traoùvé, premier service d'objets trouvés en Bretagne</h1>
+            <p>Déposez une annonce ou retrouvez un objet perdu grâce à notre communauté. Déjà <strong>4521</strong> objets retrouvés grâce à notre plateforme de mise en relation !</p>
+            <section class="row">
+                <article class="col-md-4">
+                    <a class="btn btn-primary" href="{{ path('item_new', {'type' : 'perdu'}) }}">
+                        <i class="fa fa-plus-circle"></i>
+                        <h2>Créer un avis de recherche</h2>
+                    </a>
+                </article>
+                <article class="col-md-4">
+                    <a class="btn btn-info" href="{{ path('item_new', {'type' : 'trouve'}) }}">
+                        <i class="fa fa-map-pin"></i>
+                        <h2>Déclarer un objet trouvé</h2>
+                    </a>
+                </article>
+                <article class="col-md-4">
+                    <a class="btn btn-danger" href="{{ path('item_search') }}">
+                        <i class="fa fa-search"></i>
+                        <h2>Rechercher un objet perdu</h2>
+                    </a>
+                </article>
+            </section>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Les derniers objets trouvés</h2>
+        <section class="row">
+
+            {% for item_found in items_found %}
+                {% include 'item/card.html.twig' with {'item' : item_found} %}
+            {% endfor %}
+            {% if items_found|length >= constant('App\\Entity\\Item::MAX_RESULT') %}
+                <a href="{{ path('item_list', {'status' : constant('App\\Entity\\Status::FOUND')}) }}" class="btn btn-outline-primary see-more">
+                    <i class="fa fa-eye"></i>
+                    Voir plus
+                </a>
+            {% endif %}
+        </section>
+    </div>
+
+    <div class="container">
+        <h2>Les derniers objets perdus</h2>
+        <section class="row">
+            {% for item_lost in items_lost %}
+                {% include 'item/card.html.twig' with {'item' : item_lost} %}
+            {% endfor %}
+            {% if items_lost|length > constant('App\\Entity\\Item::MAX_RESULT') %}
+                <a href="{{ path('item_list', {'status' : constant('App\\Entity\\Status::LOST')}) }}" class="btn btn-outline-primary see-more">
+                    <i class="fa fa-eye"></i>
+                    Voir plus
+                </a>
+            {% endif %}
+        </section>
+    </div>
+{% endblock %}

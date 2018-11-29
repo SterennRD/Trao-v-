@@ -82,9 +82,9 @@
                     </div>
                 </div>
                 <div class="d-flex">
-                    <div class="flex-fill d-flex flex-column justify-content-center align-items-end">
-                        <p>Par <b>{{ item.user.fullname }}</b></p>
-                        <p>Le {{ item.createdat|date("d/m/Y") }}</b></p>
+                    <div class="flex-fill d-flex flex-column justify-content-center align-items-end item-user">
+                        <p class="m-0">Par <b>{{ item.user.fullname }}</b></p>
+                        <p class="m-0">Le {{ item.createdat|date("d/m/Y") }}</b></p>
                     </div>
                     <div>
                         {% if item.user.photo == null %}
@@ -95,7 +95,6 @@
                                 <img src="{{ asset('uploads/' ~ item.user.photo) }}" alt="{{ item.user.fullname }}">
                         {% endif %}
 
-                        <p></p>
                     </div>
                 </div>
             </div>
@@ -134,14 +133,22 @@
                     </div>
                 </li>
             {% endfor %}
+            {% if comments|length == 0 %}
+                Aucun commentaire
+            {% endif %}
         </ul>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <h2>Ajouter un commentaire</h2>
         {{ form_start(form) }}
+        <div class="form-group">
             {{ form_widget(form.content) }}
+        </div>
         <button class="btn btn-success">
             <i class="fa fa-check"></i>
             {{ button_label|default('Laisser un commentaire') }}
         </button>
         {{ form_end(form) }}
+        {% else %}
+        {% endif %}
     </div>
 {% endblock %}

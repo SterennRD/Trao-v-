@@ -46,4 +46,22 @@ class ItemRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findBySearch(int $category, int $county , string $date = null) : array
+    {
+        $qb = $this->createQueryBuilder('i');
+
+        $qb = $qb->where($qb->expr()->eq('i.category', ":category"))
+        ->andWhere($qb->expr()->eq('i.county', ":county"));
+
+        if ($date) {
+            $qb = $qb->andWhere($qb->expr()->eq('i.dateBegin', ':date'))
+                    ->setParameter('date', $date);
+        }
+
+        return $qb->setParameter('category', $category)
+            ->setParameter('county', $county)
+            ->getQuery()
+            ->getResult();
+    }
 }

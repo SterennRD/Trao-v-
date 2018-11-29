@@ -53,10 +53,11 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="comment_show", methods="GET")
+     * @Route("/admin/{id}", name="comment_show", methods="GET")
      */
     public function show(Comment $comment): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         return $this->render('comment/show.html.twig', ['comment' => $comment]);
     }
 
