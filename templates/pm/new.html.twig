@@ -3,9 +3,11 @@
 {% block title %}New Pm{% endblock %}
 
 {% block body %}
-    <h1>Create new Pm</h1>
+    <div class="container">
+        <h1>Ecrire un message privé</h1>
 
-    {{ include('pm/_form.html.twig') }}
+        {{ include('pm/_form.html.twig') }}
+    </div>
 
-    <a href="{{ path('pm_index') }}">back to list</a>
+
 {% endblock %}

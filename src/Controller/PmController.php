@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Item;
 use App\Entity\Pm;
+use App\Entity\User;
 use App\Form\PmType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,11 +23,20 @@ class PmController extends AbstractController
      */
     public function index(): Response
     {
-        $pms = $this->getDoctrine()
-            ->getRepository(Pm::class)
-            ->findAll();
+        $id = $this->getUser()->getId();
 
-        return $this->render('pm/index.html.twig', ['pms' => $pms]);
+        $pms_sent = $this->getDoctrine()
+            ->getRepository(Pm::class)
+            ->findBy(['userFrom' => $id]);
+        $pms_received = $this->getDoctrine()
+            ->getRepository(Pm::class)
+            ->findBy(['userTo' => $id]);
+
+        return $this->render('pm/index.html.twig', [
+
+            'pms_sent' => $pms_sent,
+            'pms_received' => $pms_received,
+        ]);
     }
 
     /**
@@ -32,7 +45,23 @@ class PmController extends AbstractController
     public function new(Request $request): Response
     {
         $pm = new Pm();
+        $id = $request->get('id');
+
+
         $form = $this->createForm(PmType::class, $pm);
+        if ($id) {
+            $user_to = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => $id]);
+            $pm->setUserTo($user_to);
+        } else {
+            $form = $this->createFormBuilder($pm)
+                ->add('title', TextType::class, array('label' => 'Titre'))
+                ->add('content', TextareaType::class, array('label' => 'Contenu'))
+                ->add('userTo')
+                ->getForm()
+            ;
+        }
+        $pm->setDate(new \DateTime());
+        $pm->setUserFrom($this->getUser());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

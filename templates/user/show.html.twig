@@ -12,10 +12,13 @@
         {% else %}
             <img src="{{ asset('uploads/' ~ user.photo) }}" alt="{{ user.fullname }}">
         {% endif %}
-        <a href="" class="btn btn-primary">
+        <a href="{{ path('pm_new', {'id' : user.id}) }}" class="btn btn-primary">
             <i class="fa fa-envelope"></i>
             Envoyer un message
         </a>
+        {% if user.id == app.user.id %}
+            <a href="{{ path('pm_index') }}">Voir mes messages privés</a>
+        {% endif %}
     </div>
     <h1>User</h1>
 
