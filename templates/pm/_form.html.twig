@@ -1,4 +1,13 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_label(form.userTo, 'Envoyer un message à' )}}
+    {{ form_widget(form.userTo) }}
+
+    {{ form_row(form.title) }}
+
+    {{ form_row(form.content) }}
+
+    <button class="btn btn-success">
+        <i class="fa fa-envelope-o"></i>
+        {{ button_label|default('Envoyer un message') }}
+    </button>
 {{ form_end(form) }}

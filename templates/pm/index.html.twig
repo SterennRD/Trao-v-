@@ -1,17 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Pm index{% endblock %}
+{% block title %}Messages privés{% endblock %}
 
 {% block body %}
     <div class="container">
         <h1>Mes messages privés</h1>
         {% for pm_sent in pms_sent %}
-            <a href="{{ path('pm_show', {'id' : pm_sent.id}) }}">
-            {{ pm_sent.title }}
-            </a>
+            <div class="border p-3 mt-2 mb-2">
+                <h2 class="h4">
+                    <a href="{{ path('pm_show', {'id' : pm_sent.id}) }}">
+                        {{ pm_sent.title }}
+                    </a>
+                </h2>
+                De <b><a href="{{ path('user_show', {'id' : pm_sent.userfrom.id}) }}">{{ pm_sent.userfrom }}</a></b>
+                le <b>{{ pm_sent.date|date('d-m-y') }}</b>
+            </div>
+
         {% endfor %}
         {% for pm_received in pms_received %}
-            {{ pm_received.title }}
+            <div>
+                <h2>{{ pm_received.title }}</h2>
+                De <b>{{ pm_received.user_from }}</b>
+            </div>
         {% endfor %}
         <a href="{{ path('pm_new') }}" class="btn btn-success">
             <i class="fa fa-envelope"></i>

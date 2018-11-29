@@ -53,7 +53,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/admin/{id}", name="comment_show", methods="GET")
+     * @Route("/{id}", name="comment_show", methods="GET")
      */
     public function show(Comment $comment): Response
     {

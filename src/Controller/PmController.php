@@ -6,6 +6,7 @@ use App\Entity\Item;
 use App\Entity\Pm;
 use App\Entity\User;
 use App\Form\PmType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -23,6 +24,7 @@ class PmController extends AbstractController
      */
     public function index(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $id = $this->getUser()->getId();
 
         $pms_sent = $this->getDoctrine()
@@ -44,6 +46,7 @@ class PmController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $pm = new Pm();
         $id = $request->get('id');
 
@@ -54,9 +57,9 @@ class PmController extends AbstractController
             $pm->setUserTo($user_to);
         } else {
             $form = $this->createFormBuilder($pm)
+                ->add('userTo')
                 ->add('title', TextType::class, array('label' => 'Titre'))
                 ->add('content', TextareaType::class, array('label' => 'Contenu'))
-                ->add('userTo')
                 ->getForm()
             ;
         }
@@ -83,6 +86,7 @@ class PmController extends AbstractController
      */
     public function show(Pm $pm): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('pm/show.html.twig', ['pm' => $pm]);
     }
 
