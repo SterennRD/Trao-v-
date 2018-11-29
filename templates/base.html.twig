@@ -29,7 +29,7 @@
             </nav>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <div class="btn brn-outline-primary btn-space">
-                {{ app.user.username }}
+                <a href="{{ path('user_show', {'id' : app.user.id}) }}">{{ app.user.username }}</a>
             </div>
                 <a class="btn btn-outline-secondary" href="{{ path('app_logout') }}">
                     <i class="fa fa-user-plus"></i>
