@@ -23,7 +23,7 @@ class ItemType extends AbstractType
             ->add('photo', FileType::class, array('required' => false))
             ->add('description', TextareaType::class, array('required' => false))
             ->add('dateBegin', DateType::class, array(
-                'label' => 'Trouvé le',
+                'label' => 'Date',
                 'widget' => 'single_text'
             ))
             ->add('category')

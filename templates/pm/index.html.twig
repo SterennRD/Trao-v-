@@ -23,7 +23,7 @@
                 De <b>{{ pm_received.user_from }}</b>
             </div>
         {% endfor %}
-        <a href="{{ path('pm_new') }}" class="btn btn-success">
+        <a href="{{ path('pm_new', {'to' : 'unknown'}) }}" class="btn btn-success">
             <i class="fa fa-envelope"></i>
             Nouveau message
         </a>

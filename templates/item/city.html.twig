@@ -1,16 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}{{ city }}{% endblock %}
 
 {% block body %}
     <div class="container">
         <h2>Les derniers objets trouvés à {{ city }}</h2>
         <section class="row">
         {% for item in items %}
-        {% if item.status.label == constant('App\\Entity\\Status::FOUND') %}
+            {% if item.status.label == constant('App\\Entity\\Status::FOUND') %}
                 {% include 'item/card.html.twig' with {'item' : item} only %}
             {% endif %}
         {% endfor %}
+
         </section>
         <h2>Les derniers objets perdus à {{ city }}</h2>
         <section class="row">

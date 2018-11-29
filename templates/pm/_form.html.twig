@@ -1,6 +1,9 @@
 {{ form_start(form) }}
+{% if to == 'unknown' %}
     {{ form_label(form.userTo, 'Envoyer un message à' )}}
     {{ form_widget(form.userTo) }}
+{% endif %}
+
 
     {{ form_row(form.title) }}
 

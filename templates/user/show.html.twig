@@ -1,67 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}Profil de {{ user.fullname }}{% endblock %}
 
 {% block body %}
     <div class="container">
         <h1>{{ user.fullname }}</h1>
-        {% if user.photo == null %}
-            <div class="img-thumbnail imgless-item imgless-item--user">
-                <i class="fa fa-user"></i>
+        <div class="row">
+            <div class="col-md-2">
+                {% if user.photo == null %}
+                    <div class="img-thumbnail imgless-item imgless-item--user">
+                        <i class="fa fa-user"></i>
+                    </div>
+                {% else %}
+                    <img src="{{ asset('uploads/' ~ user.photo) }}" alt="{{ user.fullname }}">
+                {% endif %}
             </div>
-        {% else %}
-            <img src="{{ asset('uploads/' ~ user.photo) }}" alt="{{ user.fullname }}">
+            <div class="col-md-8">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.id != user.id %}
+                    <a href="{{ path('pm_new', {'id' : user.id}) }}" class="btn btn-primary">
+                        <i class="fa fa-envelope"></i>
+                        Envoyer un message
+                    </a>
+                {% endif %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                {% else %}
+                    Se <a href="{{ path('app_login') }}">connecter</a> pour envoyer un message
+                {% endif %}
+
+                {% if is_granted('IS_AUTHENTICATED_FULLY') and user.id == app.user.id %}
+                    <a href="{{ path('pm_index') }}" class="btn btn-primary">
+                        <i class="fa fa-envelope"></i>
+                        Voir mes messages privés
+                    </a>
+                {% endif %}
+
+            </div>
+        </div>
+        {% if is_granted('ROLE_ADMIN') %}
+        <div class="row mt-3">
+            <a href="{{ path('user_edit', {'id': user.id}) }}" class="badge badge-primary">Editer l'utilisateur</a>
+        </div>
         {% endif %}
-        <a href="{{ path('pm_new', {'id' : user.id}) }}" class="btn btn-primary">
-            <i class="fa fa-envelope"></i>
-            Envoyer un message
-        </a>
-        {% if user.id == app.user.id %}
-            <a href="{{ path('pm_index') }}">Voir mes messages privés</a>
-        {% endif %}
+
+
+
     </div>
-    <h1>User</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{ user.phone }}</td>
-            </tr>
-            <tr>
-                <th>Photo</th>
-                <td>{{ user.photo }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('user_index') }}">back to list</a>
-
-    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
-
-    {{ include('user/_delete_form.html.twig') }}
 {% endblock %}

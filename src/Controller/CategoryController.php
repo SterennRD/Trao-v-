@@ -55,7 +55,8 @@ class CategoryController extends AbstractController
      */
     public function show(Category $category): Response
     {
-        $items = $this->getDoctrine()->getRepository(Item::class)->findBy(["category" => $category]);
+        $id = $category->getId();
+        $items = $this->getDoctrine()->getRepository(Item::class)->findByCategory($id);
         return $this->render('category/show.html.twig', ['category' => $category, "items" => $items]);
     }
 
@@ -66,6 +67,7 @@ class CategoryController extends AbstractController
      */
     public function edit(Request $request, Category $category): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 

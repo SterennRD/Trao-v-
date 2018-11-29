@@ -49,6 +49,7 @@ class PmController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $pm = new Pm();
         $id = $request->get('id');
+        $to = $request->get('to');
 
 
         $form = $this->createForm(PmType::class, $pm);
@@ -78,6 +79,7 @@ class PmController extends AbstractController
         return $this->render('pm/new.html.twig', [
             'pm' => $pm,
             'form' => $form->createView(),
+            'to' => $to,
         ]);
     }
 

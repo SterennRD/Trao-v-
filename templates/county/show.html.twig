@@ -1,32 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category{% endblock %}
+{% block title %}{{ county.name }}{% endblock %}
 
 {% block body %}
     <div class="container">
-        <h1>{{ county.name }}</h1>
-        <ul>
+        <h2>Les derniers objets trouvés en {{ county.name }}</h2>
+        <section class="row">
             {% for item in items %}
-                <li><a href="{{ path('item_show', {'id' : item.id}) }}">{{ item.name }}</a></li>
+                {% if item.status.label == constant('App\\Entity\\Status::FOUND') %}
+                    {% include 'item/card.html.twig' with {'item' : item} only %}
+                {% endif %}
             {% endfor %}
-        </ul>
 
-        <table class="table">
-            <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ county.id }}</td>
-            </tr>
-            <tr>
-                <th>Label</th>
-                <td>{{ county.name }}</td>
-            </tr>
-            <tr>
-                <th>Icon</th>
-                <td>{{ county.zipcode }}</td>
-            </tr>
-            </tbody>
-        </table>
-
+        </section>
+        <h2>Les derniers objets perdus en {{ county.name }}</h2>
+        <section class="row">
+            {% for item in items %}
+                {% if item.status.label == constant('App\\Entity\\Status::LOST') %}
+                    {% include 'item/card.html.twig' with {'item' : item} only %}
+                {% endif %}
+            {% endfor %}
+        </section>
     </div>
 {% endblock %}

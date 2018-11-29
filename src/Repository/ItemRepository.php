@@ -38,6 +38,19 @@ class ItemRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findByCategory(int $category) : array
+    {
+        $qb = $this->createQueryBuilder('i');
+
+        $qb = $qb->where($qb->expr()->eq('i.category', ":category"))
+            ->andWhere($qb->expr()->isNull('i.dateEnd'))
+            ->orderBy('i.createdAt', 'DESC');
+
+        return $qb->setParameter('category', $category)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findByCity (int $cityId) : array
     {
         $qb = $this->createQueryBuilder('i');
