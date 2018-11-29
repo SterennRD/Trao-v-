@@ -29,6 +29,7 @@ class ItemRepository extends ServiceEntityRepository
 
         $qb = $qb->innerJoin('i.status', 's')
             ->where($qb->expr()->eq('s.label', ":status"))
+            ->andWhere($qb->expr()->isNull('i.dateEnd'))
             ->orderBy('i.createdAt', 'DESC')
             ->setMaxResults($limit);
 
