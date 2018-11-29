@@ -94,10 +94,12 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="row">
-                        <a href="{{ path('admin') }}">Panneau d'administration</a>
-                    </div>
                 </footer>
+                {% if is_granted('ROLE_ADMIN') %}
+                <div class="d-flex justify-content-center pb-2">
+                    <a href="{{ path('admin') }}">Panneau d'administration</a>
+                </div>
+                {% endif %}
             </div>
         {% endblock %}
 
