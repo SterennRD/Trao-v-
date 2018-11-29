@@ -1,5 +1,5 @@
 easy_admin:
-  site_name: 'Ma super admin'
+  site_name: 'Traouvé admin'
   entities:
     # List the entity class name you want to manage
     #        - App\Entity\Author
@@ -8,7 +8,54 @@ easy_admin:
     #        - App\Entity\User
     #        - App\Entity\Category
     #        - App\Entity\Borrow
-    - App\Entity\Category
-    - App\Entity\User
-    - App\Entity\Item
-    - App\Entity\Comment
+    Category:
+      class: App\Entity\Category
+      label: "Catégorie"
+      list:
+        title: "Liste des catégories"
+        fields: ['id', { property: 'label', label: 'Libellé' }, { property: 'icon', label: 'Icône', template: 'admin/icon.html.twig' },{ property: 'color', label: 'Couleur', template: 'admin/color.html.twig' }]
+        actions:
+        - { name: 'edit', icon: 'pencil', label: 'Editer' }
+        - { name: 'delete', icon: 'times', label: '' }
+        - { name: 'new', label: 'Nouvelle %%entity_label%%' }
+        - { name: 'search', label: 'Rechercher' }
+      show:
+        title: '%%entity_label%% (#%%entity_id%%)'
+      form:  # <-- 'form' is applied to both 'new' and 'edit' views
+        title: 'Editer une catégorie'
+        fields:
+        - { property: 'label', label: 'Libellé' }
+        - { property: 'icon', label: 'Icône' }
+        - { property: 'color', label: 'Couleur', type_options: { block_name: 'custom_title' } }
+
+    User:
+      class: App\Entity\User
+      label: "Utilisateurs"
+      list:
+        title: "Liste des utilisateurs"
+        fields: ['id', { property: 'fullname', label: 'Prénom et Nom' }, 'email', { property: 'phone', label: 'Téléphone' }]
+        disabled_actions: ['new']
+        actions:
+        - { name: 'edit', icon: 'pencil', label: 'Editer' }
+        - { name: 'delete', icon: 'times', label: '' }
+        - { name: 'search', label: 'Rechercher' }
+      form:
+        title: 'Editer une catégorie'
+        fields:
+        - { property: 'firstname', label: 'Prénom' }
+        - { property: 'lastname', label: 'Nom'}
+        - { property: 'photo', label: 'Photo', type_options: { block_name: 'custom_button' }}
+      templates:
+        field_id: 'admin/fields/_id.html.twig'
+    Item:
+      class: App\Entity\Item
+
+
+  design:
+    brand_color: '#1ABC9C'
+    assets:
+      js:
+      - 'bundles/easyadmin/javascript/main.js'
+    form_theme:
+    - 'admin/form-color.html.twig'
+    - 'admin/save.html.twig'

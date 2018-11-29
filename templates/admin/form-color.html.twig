@@ -1,0 +1,7 @@
+{% block _category_custom_title_widget %}
+    {#{{ form_widget(form) }}#}
+    <input class="form-control" id="colorwell"  type="color" {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    <input type="text" id="{{ form.vars.id }}" name="category[color]" required="required" class="form-control" {% if value is not empty %}value="{{ value }}" {% endif %} />
+    <button class="btn">{{ button_label|default('Save') }}</button>
+
+{% endblock %}
